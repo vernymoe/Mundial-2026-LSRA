@@ -3,440 +3,222 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiniela Mundial FIFA 2026 - Semana 1</title>
+  <title>Quiniela Mundial FIFA 2026</title>
+
   <style>
     :root {
-      --azul:#102a43;
-      --celeste:#2f80ed;
-      --verde:#27ae60;
-      --rojo:#c0392b;
-      --gris:#f3f5f7;
-      --borde:#d6dce3;
-      --texto:#1f2933;
+      --azul: #102a43;
+      --azul2: #164e85;
+      --verde: #27ae60;
+      --gris: #f3f5f7;
+      --borde: #d6dce3;
+      --texto: #1f2933;
+      --blanco: #ffffff;
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background: var(--gris);
       color: var(--texto);
     }
+
     header {
-      background: linear-gradient(135deg, var(--azul), #164e85);
+      background: linear-gradient(135deg, var(--azul), var(--azul2));
       color: white;
-      padding: 24px 16px;
       text-align: center;
+      padding: 38px 18px;
     }
-    header h1 { margin: 0 0 8px; font-size: 1.7rem; }
-    header p { margin: 0; opacity: .95; }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      opacity: 0.95;
+      font-size: 1rem;
+    }
+
     main {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 0 12px 32px;
+      max-width: 950px;
+      margin: 24px auto;
+      padding: 0 14px 34px;
     }
-    .panel {
-      background: white;
+
+    .intro {
+      background: var(--blanco);
       border: 1px solid var(--borde);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
       box-shadow: 0 2px 10px rgba(0,0,0,.05);
     }
-    .row {
+
+    .intro h2 {
+      margin-top: 0;
+      color: var(--azul);
+    }
+
+    .weeks {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      align-items: end;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
     }
-    label { display:block; font-weight: bold; margin-bottom: 6px; }
-    select, input[type="number"], input[type="password"] {
-      width: 100%;
-      padding: 10px;
+
+    .week-card {
+      display: block;
+      text-decoration: none;
+      background: var(--blanco);
+      color: var(--texto);
       border: 1px solid var(--borde);
-      border-radius: 10px;
-      font-size: 1rem;
-      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      min-height: 130px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      transition: 0.2s;
     }
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-weight: bold;
-      cursor: pointer;
-      background: var(--celeste);
-      color: white;
+
+    .week-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,.12);
+    }
+
+    .week-card strong {
+      display: block;
+      font-size: 1.25rem;
+      color: var(--azul);
+      margin-bottom: 8px;
+    }
+
+    .week-card span {
+      display: block;
+      color: #596b7b;
       font-size: .95rem;
+      line-height: 1.4;
     }
-    button.secondary { background: #596b7b; }
-    button.success { background: var(--verde); }
-    button.danger { background: var(--rojo); }
-    button:disabled { background: #9aa5b1; cursor: not-allowed; }
-    .match {
-      border: 1px solid var(--borde);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-      background: #fff;
+
+    .active {
+      border: 2px solid var(--verde);
+      background: #f0fff5;
     }
-    .match.locked { background: #f8fafc; }
-    .match-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+
+    .soon {
+      opacity: .55;
+      pointer-events: none;
     }
-    .tag {
+
+    .status {
       display: inline-block;
-      padding: 4px 8px;
+      margin-top: 12px;
+      padding: 6px 10px;
       border-radius: 999px;
-      background: #eaf3ff;
-      color: #164e85;
       font-size: .85rem;
       font-weight: bold;
     }
-    .teams {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin: 8px 0 12px;
+
+    .available {
+      background: #e8f8ef;
+      color: #1e8449;
+    }
+
+    .pending {
+      background: #edf2f7;
+      color: #596b7b;
+    }
+
+    footer {
       text-align: center;
+      padding: 18px;
+      background: var(--azul);
+      color: white;
+      font-size: .9rem;
     }
-    .options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 8px;
-    }
-    .option {
-      border: 1px solid var(--borde);
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-      background: #fafafa;
-    }
-    .option input { margin-right: 6px; }
-    .official {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--borde);
-      display: grid;
-      grid-template-columns: 1fr 90px 90px auto;
-      gap: 8px;
-      align-items: center;
-    }
-    .small { color: #66788a; font-size: .9rem; }
-    .warning {
-      background: #fff7e6;
-      border: 1px solid #ffd27f;
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    th, td {
-      padding: 10px;
-      border-bottom: 1px solid var(--borde);
-      text-align: left;
-    }
-    th { background: #edf2f7; }
-    .winner { font-weight: bold; color: var(--verde); }
-    @media (max-width: 650px) {
-      header h1 { font-size: 1.35rem; }
-      .official { grid-template-columns: 1fr 1fr; }
-      .official span { grid-column: 1 / -1; }
-      .teams { font-size: 1.05rem; }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.55rem;
+      }
+
+      .intro {
+        text-align: left;
+      }
+
+      .week-card {
+        min-height: auto;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header>
-    <h1>Quiniela Mundial FIFA 2026 LSRA</h1>
-    <p>Semana 1 · Fase de grupos · Seleccione ganador o empate</p>
+    <h1>🏆 Quiniela Mundial FIFA 2026 LSRA</h1>
+    <p>Seleccione la semana correspondiente</p>
   </header>
 
   <main>
-    <section class="panel">
-      <div class="row">
-        <div>
-          <label for="participante">Participante</label>
-          <select id="participante"></select>
-        </div>
-        <div>
-          <label>Semana</label>
-          <select disabled>
-            <option>Semana 1 - Fase de grupos</option>
-          </select>
-        </div>
-        <div>
-          <button class="success" id="guardarPronosticos">Guardar pronósticos</button>
-        </div>
-      </div>
-      <div class="warning">
-        Versión limpia para Semana 1. Los datos se guardan temporalmente en este dispositivo con <b>localStorage</b>.
-      </div>
+
+    <section class="intro">
+      <h2>Menú principal</h2>
+      <p>
+        Desde esta página se ingresará a cada semana de la quiniela.
+        Las semanas se irán habilitando conforme avance el torneo.
+      </p>
     </section>
 
-    <section class="panel">
-      <h2>Resultados oficiales</h2>
-      <p class="small">El administrador puede ingresar los marcadores oficiales usando el PIN.</p>
-      <div class="row">
-        <div>
-          <label for="pinAdmin">PIN administrador</label>
-          <input type="password" id="pinAdmin" placeholder="Digite el PIN" />
-        </div>
-        <div>
-          <button class="secondary" id="activarAdmin">Activar edición de resultados</button>
-        </div>
-        <div>
-          <button class="danger" id="limpiarDatos">Limpiar datos de prueba</button>
-        </div>
-      </div>
+    <section class="weeks">
+
+      <a class="week-card active" href="semana1.html">
+        <strong>Semana 1</strong>
+        <span>Fase de grupos · 19 partidos</span>
+        <span class="status available">Disponible</span>
+      </a>
+
+      <a class="week-card soon" href="semana2.html">
+        <strong>Semana 2</strong>
+        <span>Fase de grupos · 28 partidos</span>
+        <span class="status pending">Próximamente</span>
+      </a>
+
+      <a class="week-card soon" href="semana3.html">
+        <strong>Semana 3</strong>
+        <span>Fase de grupos · 33 partidos</span>
+        <span class="status pending">Próximamente</span>
+      </a>
+
+      <a class="week-card soon" href="semana4.html">
+        <strong>Semana 4</strong>
+        <span>Dieciseisavos y octavos · 19 partidos</span>
+        <span class="status pending">Próximamente</span>
+      </a>
+
+      <a class="week-card soon" href="semana5.html">
+        <strong>Semana 5</strong>
+        <span>Cuartos y semifinales · 8 partidos</span>
+        <span class="status pending">Próximamente</span>
+      </a>
+
+      <a class="week-card soon" href="semana6.html">
+        <strong>Semana 6</strong>
+        <span>Finales · 4 partidos</span>
+        <span class="status pending">Próximamente</span>
+      </a>
+
     </section>
 
-    <section class="panel">
-      <h2>Partidos Semana 1</h2>
-      <div id="partidos"></div>
-    </section>
-
-    <section class="panel">
-      <h2>Tabla de posiciones</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Posición</th>
-            <th>Participante</th>
-            <th>Puntos Semana 1</th>
-          </tr>
-        </thead>
-        <tbody id="tablaPosiciones"></tbody>
-      </table>
-    </section>
   </main>
 
-  <script>
-    const ADMIN_PIN = "1975";
+  <footer>
+    Quiniela Mundial FIFA 2026
+  </footer>
 
-    const participantes = [
-      "Karen", "Oscar", "Verny", "Lilliana", "Bruno", "Félix", "Fernando", "Freyman",
-      "Luis H", "Marcela", "Mylagro", "Osvaldo", "Wendy", "Alfonso", "Ana Campos",
-      "Marcos Garcia", "Guillermo", "Waldin"
-    ];
-
-    const partidos = [
-      { id: 1, fecha: "2026-06-11", hora: "15:00", grupo: "A", sede: "Ciudad de México", equipo1: "MEX", equipo2: "RSA" },
-      { id: 2, fecha: "2026-06-11", hora: "22:00", grupo: "A", sede: "Guadalajara", equipo1: "KOR", equipo2: "CZE" },
-      { id: 3, fecha: "2026-06-12", hora: "15:00", grupo: "B", sede: "Toronto", equipo1: "CAN", equipo2: "BIH" },
-      { id: 4, fecha: "2026-06-12", hora: "21:00", grupo: "D", sede: "Los Ángeles", equipo1: "USA", equipo2: "PAR" },
-      { id: 5, fecha: "2026-06-13", hora: "21:00", grupo: "C", sede: "Boston", equipo1: "HAI", equipo2: "SCO" },
-      { id: 6, fecha: "2026-06-13", hora: "00:00", grupo: "D", sede: "Vancouver", equipo1: "AUS", equipo2: "TUR" },
-      { id: 7, fecha: "2026-06-13", hora: "18:00", grupo: "C", sede: "Nueva York/Nueva Jersey", equipo1: "BRA", equipo2: "MAR" },
-      { id: 8, fecha: "2026-06-13", hora: "15:00", grupo: "B", sede: "Bahía de San Francisco", equipo1: "QAT", equipo2: "SUI" },
-      { id: 9, fecha: "2026-06-14", hora: "19:00", grupo: "E", sede: "Filadelfia", equipo1: "CIV", equipo2: "ECU" },
-      { id: 10, fecha: "2026-06-14", hora: "13:00", grupo: "E", sede: "Houston", equipo1: "GER", equipo2: "CUW" },
-      { id: 11, fecha: "2026-06-14", hora: "16:00", grupo: "F", sede: "Dallas", equipo1: "NED", equipo2: "JPN" },
-      { id: 12, fecha: "2026-06-14", hora: "22:00", grupo: "F", sede: "Monterrey", equipo1: "SWE", equipo2: "TUN" },
-      { id: 13, fecha: "2026-06-15", hora: "18:00", grupo: "H", sede: "Miami", equipo1: "KSA", equipo2: "URU" },
-      { id: 14, fecha: "2026-06-15", hora: "12:00", grupo: "H", sede: "Atlanta", equipo1: "ESP", equipo2: "CPV" },
-      { id: 15, fecha: "2026-06-15", hora: "21:00", grupo: "G", sede: "Los Ángeles", equipo1: "IRN", equipo2: "NZL" },
-      { id: 16, fecha: "2026-06-15", hora: "15:00", grupo: "G", sede: "Toronto", equipo1: "BEL", equipo2: "EGY" },
-      { id: 17, fecha: "2026-06-16", hora: "15:00", grupo: "I", sede: "Filadelfia", equipo1: "FRA", equipo2: "SEN" },
-      { id: 18, fecha: "2026-06-16", hora: "18:00", grupo: "I", sede: "Boston", equipo1: "IRQ", equipo2: "NOR" },
-      { id: 19, fecha: "2026-06-16", hora: "21:00", grupo: "J", sede: "Kansas City", equipo1: "ARG", equipo2: "ALG" }
-    ];
-
-    const $ = (id) => document.getElementById(id);
-    let adminActivo = false;
-
-    function cargarParticipantes() {
-      const select = $("participante");
-      select.innerHTML = `<option value="">Seleccione su nombre</option>` +
-        participantes.map(p => `<option value="${p}">${p}</option>`).join("");
-    }
-
-    function keyPronostico(nombre) { return `quiniela2026_semana1_${nombre}`; }
-    function keyResultado(id) { return `quiniela2026_resultado_${id}`; }
-
-    function partidoBloqueadoPorFecha(partido) {
-      const ahora = new Date();
-      const fechaBloqueo = new Date(`${partido.fecha}T00:00:00`);
-      fechaBloqueo.setDate(fechaBloqueo.getDate() - 1);
-      return ahora >= fechaBloqueo;
-    }
-
-    function leerPronosticos(nombre) {
-      if (!nombre) return {};
-      return JSON.parse(localStorage.getItem(keyPronostico(nombre)) || "{}");
-    }
-
-    function leerResultado(id) {
-      return JSON.parse(localStorage.getItem(keyResultado(id)) || "null");
-    }
-
-    function resultadoDeMarcador(g1, g2, equipo1, equipo2) {
-      if (g1 > g2) return equipo1;
-      if (g2 > g1) return equipo2;
-      return "EMPATE";
-    }
-
-    function renderPartidos() {
-      const nombre = $("participante").value;
-      const pronosticos = leerPronosticos(nombre);
-      const contenedor = $("partidos");
-
-      contenedor.innerHTML = partidos.map(p => {
-        const guardado = nombre && pronosticos[p.id];
-        const bloqueadoFecha = partidoBloqueadoPorFecha(p);
-        const disabled = !nombre || guardado || bloqueadoFecha ? "disabled" : "";
-        const resultado = leerResultado(p.id);
-        const resultadoGuardado = !!resultado;
-        const adminDisabled = (!adminActivo || resultadoGuardado) ? "disabled" : "";
-
-        return `
-          <div class="match ${guardado || bloqueadoFecha ? "locked" : ""}">
-            <div class="match-head">
-              <span class="tag">Partido ${p.id} · Grupo ${p.grupo}</span>
-              <span class="small">${p.fecha} · ${p.hora} ET · ${p.sede}</span>
-            </div>
-            <div class="teams">${p.equipo1} vs ${p.equipo2}</div>
-            <div class="options">
-              ${[p.equipo1, "EMPATE", p.equipo2].map(op => `
-                <label class="option">
-                  <input type="radio" name="partido_${p.id}" value="${op}" ${pronosticos[p.id] === op ? "checked" : ""} ${disabled}>
-                  ${op === "EMPATE" ? "Empate" : op + " gana"}
-                </label>`).join("")}
-            </div>
-            <div class="small" style="margin-top:8px;">
-              ${guardado ? "Pronóstico guardado. No se puede modificar." : ""}
-              ${bloqueadoFecha ? " Este partido está bloqueado por fecha." : ""}
-            </div>
-            <div class="official">
-              <span><b>Resultado oficial:</b> ${resultado ? `${resultado.goles1} - ${resultado.goles2}` : "pendiente"}</span>
-              <input type="number" min="0" id="g1_${p.id}" placeholder="${p.equipo1}" ${adminDisabled}>
-              <input type="number" min="0" id="g2_${p.id}" placeholder="${p.equipo2}" ${adminDisabled}>
-              <button onclick="guardarResultado(${p.id})" ${adminDisabled}>Guardar resultado</button>
-            </div>
-          </div>`;
-      }).join("");
-    }
-
-    function guardarPronosticos() {
-      const nombre = $("participante").value;
-      if (!nombre) {
-        alert("Seleccione un participante.");
-        return;
-      }
-
-      const existentes = leerPronosticos(nombre);
-      const nuevos = { ...existentes };
-      let incompletos = 0;
-
-      partidos.forEach(p => {
-        if (existentes[p.id] || partidoBloqueadoPorFecha(p)) return;
-        const elegido = document.querySelector(`input[name="partido_${p.id}"]:checked`);
-        if (elegido) nuevos[p.id] = elegido.value;
-        else incompletos++;
-      });
-
-      if (incompletos > 0 && !confirm(`Hay ${incompletos} partidos sin pronóstico. ¿Desea guardar solo los seleccionados?`)) {
-        return;
-      }
-
-      localStorage.setItem(keyPronostico(nombre), JSON.stringify(nuevos));
-      alert("Pronósticos guardados. Ya no se podrán modificar en este dispositivo.");
-      renderPartidos();
-      renderTabla();
-    }
-
-    window.guardarResultado = function(id) {
-      const partido = partidos.find(p => p.id === id);
-      const g1 = Number($("g1_" + id).value);
-      const g2 = Number($("g2_" + id).value);
-
-      if (leerResultado(id)) {
-        alert("Este resultado oficial ya fue guardado.");
-        return;
-      }
-      if (!Number.isInteger(g1) || !Number.isInteger(g2) || g1 < 0 || g2 < 0) {
-        alert("Digite marcadores válidos.");
-        return;
-      }
-
-      const ganador = resultadoDeMarcador(g1, g2, partido.equipo1, partido.equipo2);
-      localStorage.setItem(keyResultado(id), JSON.stringify({ goles1: g1, goles2: g2, ganador }));
-      renderPartidos();
-      renderTabla();
-    };
-
-    function calcularPuntos(nombre) {
-      const pronosticos = leerPronosticos(nombre);
-      let puntos = 0;
-      partidos.forEach(p => {
-        const resultado = leerResultado(p.id);
-        if (resultado && pronosticos[p.id] === resultado.ganador) puntos++;
-      });
-      return puntos;
-    }
-
-    function renderTabla() {
-      const filas = participantes
-        .map(nombre => ({ nombre, puntos: calcularPuntos(nombre) }))
-        .sort((a, b) => b.puntos - a.puntos || a.nombre.localeCompare(b.nombre));
-
-      $("tablaPosiciones").innerHTML = filas.map((f, i) => `
-        <tr class="${i === 0 && f.puntos > 0 ? "winner" : ""}">
-          <td>${i + 1}</td>
-          <td>${f.nombre}</td>
-          <td>${f.puntos}</td>
-        </tr>
-      `).join("");
-    }
-
-    function limpiarDatosDePrueba() {
-      const pin = $("pinAdmin").value;
-      if (pin !== ADMIN_PIN) {
-        alert("Digite el PIN de administrador para limpiar los datos.");
-        return;
-      }
-
-      if (!confirm("Esto borrará pronósticos y resultados guardados en este dispositivo. ¿Desea continuar?")) {
-        return;
-      }
-
-      Object.keys(localStorage).forEach(key => {
-        if (key.startsWith("quiniela2026_semana1_") || key.startsWith("quiniela2026_resultado_")) {
-          localStorage.removeItem(key);
-        }
-      });
-
-      alert("Datos de prueba eliminados en este dispositivo.");
-      adminActivo = false;
-      $("pinAdmin").value = "";
-      renderPartidos();
-      renderTabla();
-    }
-
-    $("participante").addEventListener("change", renderPartidos);
-    $("guardarPronosticos").addEventListener("click", guardarPronosticos);
-    $("limpiarDatos").addEventListener("click", limpiarDatosDePrueba);
-
-    $("activarAdmin").addEventListener("click", () => {
-      if ($("pinAdmin").value === ADMIN_PIN) {
-        adminActivo = true;
-        alert("Edición de resultados activada.");
-        renderPartidos();
-      } else {
-        alert("PIN incorrecto.");
-      }
-    });
-
-    cargarParticipantes();
-    renderPartidos();
-    renderTabla();
-  </script>
 </body>
 </html>
