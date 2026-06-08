@@ -297,6 +297,12 @@
       text-decoration:underline;
     }
 
+    .admin-tools{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px dashed var(--borde);
+    }
+
     @media(max-width:650px){
       header h1{font-size:1.35rem}
       .official{grid-template-columns:1fr 1fr}
@@ -310,7 +316,7 @@
 <body>
 
 <header>
-  <h1>🏆 Quiniela Mundial FIFA 2026 LSRA</h1>
+  <h1>🏆 Quiniela Mundial FIFA 2026</h1>
   <p>Semana 1 · Fase de grupos · Pronósticos en línea</p>
 </header>
 
@@ -399,6 +405,25 @@
       </div>
     </div>
 
+    <div class="admin-tools">
+      <h3>Corregir pronóstico de un participante</h3>
+      <p class="small">
+        Use esta opción solo si un participante tuvo un error al guardar.
+        Se borrará su pronóstico completo y podrá volver a enviarlo mientras la recepción esté abierta.
+      </p>
+
+      <div class="row">
+        <div>
+          <label for="participanteBorrar">Participante a corregir</label>
+          <select id="participanteBorrar"></select>
+        </div>
+
+        <div>
+          <button class="danger" id="borrarPronosticoUsuario">Borrar pronóstico del participante</button>
+        </div>
+      </div>
+    </div>
+
     <div id="estadoSemana" class="warning-box">
       La recepción está abierta. Los pronósticos públicos estarán ocultos hasta que el administrador los muestre.
     </div>
@@ -452,7 +477,7 @@
     appId: "1:838092529391:web:c13a19ad3d5b1cdf4f851a"
   };
 
-  const ADMIN_PIN = "1975";
+  const ADMIN_PIN = "QM2026";
   const SEMANA = "semana1";
 
   const participantes = [
@@ -524,8 +549,13 @@
   function refResultadoPartido(id){return db.ref(`quiniela2026/${SEMANA}/resultados/partido_${id}`)}
 
   function cargarParticipantes(){
-    $("participante").innerHTML = `<option value="">Seleccione su nombre</option>` +
-      participantes.map(p => `<option value="${p}">${p}</option>`).join("");
+    const opciones = participantes.map(p => `<option value="${p}">${p}</option>`).join("");
+
+    $("participante").innerHTML = `<option value="">Seleccione su nombre</option>` + opciones;
+
+    if($("participanteBorrar")){
+      $("participanteBorrar").innerHTML = `<option value="">Seleccione participante</option>` + opciones;
+    }
   }
 
   function escucharDatos(){
@@ -729,11 +759,17 @@
       return;
     }
 
-    if(incompletos > 0 && !confirm(`Hay ${incompletos} partidos sin pronóstico. ¿Desea guardar solo los seleccionados?`)){
+    if(incompletos > 0){
+      alert(`Faltan ${incompletos} partidos por pronosticar. Debe completar los 19 partidos antes de guardar.`);
       return;
     }
 
-    if(!confirm(`¿Guardar definitivamente los pronósticos de ${nombre}? Después no se podrán modificar.`)){
+    if(Object.keys(respuestas).length !== partidos.length){
+      alert("No se puede guardar porque la quiniela está incompleta. Revise todos los partidos.");
+      return;
+    }
+
+    if(!confirm(`¿Guardar definitivamente los 19 pronósticos de ${nombre}? Después no se podrán modificar.`)){
       return;
     }
 
@@ -935,6 +971,50 @@
     alert("Pronósticos visibles para todos.");
   }
 
+  async function borrarPronosticoParticipante(){
+    if(!adminActivo){
+      alert("Debe activar el modo administrador.");
+      return;
+    }
+
+    const nombre = $("participanteBorrar").value;
+
+    if(!nombre){
+      alert("Seleccione el participante que desea corregir.");
+      return;
+    }
+
+    const registro = obtenerPronosticoJugador(nombre);
+
+    if(!registro){
+      alert("Este participante no tiene pronósticos guardados.");
+      return;
+    }
+
+    if(configSemana.recepcionCerrada){
+      if(!confirm("La recepción está cerrada. ¿Aun así desea borrar el pronóstico de este participante?")){
+        return;
+      }
+    }
+
+    if(!confirm(`¿Desea borrar el pronóstico guardado de ${nombre}? Esta persona podrá volver a realizar su predicción.`)){
+      return;
+    }
+
+    try{
+      await refPronosticoJugador(nombre).remove();
+
+      if($("participante").value === nombre){
+        $("participante").value = "";
+      }
+
+      alert(`Pronóstico de ${nombre} eliminado correctamente.`);
+    }catch(error){
+      console.error(error);
+      alert("No se pudo borrar el pronóstico del participante.");
+    }
+  }
+
   async function limpiarSemana(){
     if(!adminActivo){
       alert("Debe activar el modo administrador.");
@@ -977,6 +1057,7 @@
 
   $("cerrarRecepcion").addEventListener("click", cerrarRecepcion);
   $("mostrarPronosticos").addEventListener("click", mostrarPronosticos);
+  $("borrarPronosticoUsuario").addEventListener("click", borrarPronosticoParticipante);
   $("limpiarSemana").addEventListener("click", limpiarSemana);
 
   cargarParticipantes();
