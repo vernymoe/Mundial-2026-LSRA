@@ -379,7 +379,7 @@
     <h2>Administración</h2>
     <p class="small">
       El administrador puede ingresar resultados oficiales, cerrar la recepción de pronósticos,
-      mostrar los pronósticos al grupo o limpiar datos de prueba.
+      mostrar los pronósticos al grupo, corregir usuarios o limpiar datos de prueba.
     </p>
 
     <div class="row">
@@ -590,10 +590,9 @@
   }
 
   function partidoBloqueadoPorFecha(partido){
-    const ahora = new Date();
-    const fechaBloqueo = new Date(`${partido.fecha}T00:00:00`);
-    fechaBloqueo.setDate(fechaBloqueo.getDate() - 1);
-    return ahora >= fechaBloqueo;
+    // Bloqueo por fecha desactivado.
+    // La recepción se controla únicamente con el botón "Cerrar recepción" del administrador.
+    return false;
   }
 
   function obtenerPronosticoJugador(nombre){
@@ -682,7 +681,7 @@
 
           <div class="small" style="margin-top:8px;">
             ${jugadorBloqueado ? "Pronósticos enviados. Ya no se pueden modificar." : ""}
-            ${bloqueadoFecha ? " Este partido está bloqueado por fecha." : ""}
+            
             ${recepcionCerrada ? " La recepción de pronósticos está cerrada." : ""}
           </div>
 
@@ -1074,3 +1073,4 @@
 
 </body>
 </html>
+
