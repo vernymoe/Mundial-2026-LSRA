@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiniela Mundial FIFA 2026 - Semana 2</title>
+
+  <style>
+    :root{
+      --azul:#102a43;
+      --azul2:#164e85;
+      --celeste:#2f80ed;
+      --verde:#27ae60;
+      --rojo:#c0392b;
+      --gris:#f3f5f7;
+      --borde:#d6dce3;
+      --texto:#1f2933;
+      --oro:#f2c94c;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--gris);
+      color:var(--texto);
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--azul),var(--azul2));
+      color:white;
+      padding:28px 16px;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    header p{
+      margin:0;
+      opacity:.95;
+    }
+
+    main{
+      max-width:1200px;
+      margin:20px auto;
+      padding:0 12px 35px;
+    }
+
+    .panel{
+      background:white;
+      border:1px solid var(--borde);
+      border-radius:14px;
+      padding:16px;
+      margin-bottom:16px;
+      box-shadow:0 2px 10px rgba(0,0,0,.05);
+    }
+
+    h2{
+      margin-top:0;
+      color:var(--azul);
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:12px;
+      align-items:end;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+    }
+
+    select,
+    input[type="number"],
+    input[type="password"]{
+      width:100%;
+      padding:10px;
+      border:1px solid var(--borde);
+      border-radius:10px;
+      font-size:1rem;
+      background:white;
+    }
+
+    button{
+      border:0;
+      border-radius:10px;
+      padding:11px 14px;
+      font-weight:bold;
+      cursor:pointer;
+      background:var(--celeste);
+      color:white;
+      font-size:.95rem;
+    }
+
+    button.secondary{background:#596b7b}
+    button.success{background:var(--verde)}
+    button.danger{background:var(--rojo)}
+    button.warning{background:#b7791f}
+    button:disabled{background:#9aa5b1;cursor:not-allowed}
+
+    .small{
+      color:#66788a;
+      font-size:.9rem;
+    }
+
+    .ok-box{
+      background:#e8f8ef;
+      border:1px solid #9ad9b2;
+      padding:10px;
+      border-radius:10px;
+      margin-top:10px;
+    }
+
+    .warning-box{
+      background:#fff7e6;
+      border:1px solid #ffd27f;
+      padding:10px;
+      border-radius:10px;
+      margin-top:10px;
+    }
+
+    .error-box{
+      background:#fdecea;
+      border:1px solid #f5b7b1;
+      padding:10px;
+      border-radius:10px;
+      margin-top:10px;
+      color:#922b21;
+    }
+
+    .match{
+      border:1px solid var(--borde);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+      background:#fff;
+    }
+
+    .match.locked{
+      background:#f8fafc;
+    }
+
+    .match-head{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#eaf3ff;
+      color:#164e85;
+      font-size:.85rem;
+      font-weight:bold;
+    }
+
+    .teams{
+      font-size:1.15rem;
+      font-weight:bold;
+      margin:8px 0 12px;
+      text-align:center;
+    }
+
+    .options{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:8px;
+    }
+
+    .option{
+      border:1px solid var(--borde);
+      border-radius:10px;
+      padding:10px;
+      text-align:center;
+      cursor:pointer;
+      background:#fafafa;
+    }
+
+    .option input{
+      margin-right:6px;
+    }
+
+    .official{
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px dashed var(--borde);
+      display:grid;
+      grid-template-columns:1fr 90px 90px auto;
+      gap:8px;
+      align-items:center;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    th,td{
+      padding:10px;
+      border-bottom:1px solid var(--borde);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#edf2f7;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+    }
+
+    .winner{
+      font-weight:bold;
+      color:var(--verde);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:12px;
+    }
+
+    .stat{
+      background:#f8fafc;
+      border:1px solid var(--borde);
+      border-radius:12px;
+      padding:14px;
+      text-align:center;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.5rem;
+      color:var(--azul);
+      margin-bottom:4px;
+    }
+
+    .pred-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:12px;
+    }
+
+    .pred-card{
+      border:1px solid var(--borde);
+      border-radius:12px;
+      padding:12px;
+      background:#fbfdff;
+    }
+
+    .pred-card h3{
+      margin:0 0 8px;
+      color:var(--azul);
+    }
+
+    .pred-list{
+      margin:0;
+      padding-left:18px;
+      font-size:.92rem;
+      line-height:1.5;
+    }
+
+    .status-dot{
+      display:inline-block;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      margin-right:6px;
+      background:#9aa5b1;
+    }
+
+    .status-dot.online{
+      background:var(--verde);
+    }
+
+    .top-link{
+      display:inline-block;
+      margin-bottom:12px;
+      color:var(--azul2);
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    .top-link:hover{
+      text-decoration:underline;
+    }
+
+    .admin-tools{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px dashed var(--borde);
+    }
+
+    @media(max-width:650px){
+      header h1{font-size:1.35rem}
+      .official{grid-template-columns:1fr 1fr}
+      .official span{grid-column:1/-1}
+      .teams{font-size:1.02rem}
+      th,td{font-size:.9rem}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏆 Quiniela Mundial FIFA 2026</h1>
+  <p>Semana 2 · Fase de grupos · Pronósticos en línea</p>
+</header>
+
+<main>
+
+  <a href="index.html" class="top-link">← Volver al inicio</a>
+
+  <section class="panel">
+    <h2>Estado de conexión</h2>
+    <p id="estadoConexion" class="small">
+      <span class="status-dot"></span>Conectando con Firebase...
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Resumen de la semana</h2>
+    <div class="stats">
+      <div class="stat">
+        <strong id="totalParticipantes">25</strong>
+        Participantes
+      </div>
+      <div class="stat">
+        <strong id="totalEnviados">0</strong>
+        Ya enviaron
+      </div>
+      <div class="stat">
+        <strong id="totalPendientes">25</strong>
+        Pendientes
+      </div>
+      <div class="stat">
+        <strong>28</strong>
+        Partidos
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <div>
+        <label for="participante">Participante</label>
+        <select id="participante"></select>
+      </div>
+
+      <div>
+        <label>Semana</label>
+        <select disabled>
+          <option>Semana 2 - Fase de grupos</option>
+        </select>
+      </div>
+
+      <div>
+        <button class="success" id="guardarPronosticos">Guardar pronósticos</button>
+      </div>
+    </div>
+
+    <div id="mensajeParticipante" class="small" style="margin-top:10px;"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Administración</h2>
+    <p class="small">
+      El administrador puede ingresar resultados oficiales, cerrar la recepción de pronósticos,
+      mostrar los pronósticos al grupo, corregir usuarios o limpiar datos de prueba.
+    </p>
+
+    <div class="row">
+      <div>
+        <label for="pinAdmin">PIN administrador</label>
+        <input type="password" id="pinAdmin" placeholder="Digite el PIN">
+      </div>
+
+      <div>
+        <button class="secondary" id="activarAdmin">Activar administrador</button>
+      </div>
+
+      <div>
+        <button class="warning" id="cerrarRecepcion">Cerrar recepción</button>
+      </div>
+
+      <div>
+        <button class="secondary" id="mostrarPronosticos">Mostrar pronósticos</button>
+      </div>
+
+      <div>
+        <button class="danger" id="limpiarSemana">Limpiar Semana 2</button>
+      </div>
+    </div>
+
+    <div class="admin-tools">
+      <h3>Corregir pronóstico de un participante</h3>
+      <p class="small">
+        Use esta opción solo si un participante tuvo un error al guardar.
+        Se borrará su pronóstico completo y podrá volver a enviarlo mientras la recepción esté abierta.
+      </p>
+
+      <div class="row">
+        <div>
+          <label for="participanteBorrar">Participante a corregir</label>
+          <select id="participanteBorrar"></select>
+        </div>
+
+        <div>
+          <button class="danger" id="borrarPronosticoUsuario">Borrar pronóstico del participante</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="estadoSemana" class="warning-box">
+      La recepción está abierta. Los pronósticos públicos estarán ocultos hasta que el administrador los muestre.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Partidos Semana 2</h2>
+    <div id="partidos"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Tabla de posiciones</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Posición</th>
+            <th>Participante</th>
+            <th>Puntos</th>
+            <th>Pronósticos enviados</th>
+            <th>Fecha de envío</th>
+          </tr>
+        </thead>
+        <tbody id="tablaPosiciones"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Pronósticos enviados</h2>
+    <p class="small">
+      Antes de que el administrador los muestre, solo se verá quién ya envió. Después se podrán ver las respuestas,
+      pero no modificarlas.
+    </p>
+    <div id="pronosticosPublicos" class="pred-grid"></div>
+  </section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAFAfv25lI2w59tp8x2JvGfSlLVltZA-Ck",
+    authDomain: "quiniela-mundial-2026-ls-335d9.firebaseapp.com",
+    databaseURL: "https://quiniela-mundial-2026-ls-335d9-default-rtdb.firebaseio.com",
+    projectId: "quiniela-mundial-2026-ls-335d9",
+    storageBucket: "quiniela-mundial-2026-ls-335d9.firebasestorage.app",
+    messagingSenderId: "838092529391",
+    appId: "1:838092529391:web:c13a19ad3d5b1cdf4f851a"
+  };
+
+  const ADMIN_PIN = "QM2026";
+  const SEMANA = "semana2";
+
+  const participantes = [
+    "Karen","Oscar","Verny","Lilliana","Bruno","Félix","Fernando","Freyman",
+    "Marcela","Mylagro","Osvaldo","Wendy","Diego Física","Ana Campos","Maikor Campos","Marcos Garcia",
+    "Guillermo","Waldin","Diego González","Adrian","Faviana","Bryan",
+    "Angie Soto","Silvia","Ileana","Gonzalo","Raquel Pocasangre"
+  ];
+
+  const partidos = [
+    {id:20,fecha:"2026-06-17",hora:"00:00",grupo:"J",sede:"Bahía de San Francisco",equipo1:"Austria",equipo2:"Jordania"},
+    {id:21,fecha:"2026-06-17",hora:"19:00",grupo:"L",sede:"Toronto",equipo1:"Ghana",equipo2:"Panamá"},
+    {id:22,fecha:"2026-06-17",hora:"16:00",grupo:"L",sede:"Dallas",equipo1:"Inglaterra",equipo2:"Croacia"},
+    {id:23,fecha:"2026-06-17",hora:"13:00",grupo:"K",sede:"Houston",equipo1:"Portugal",equipo2:"RD Congo"},
+    {id:24,fecha:"2026-06-17",hora:"22:00",grupo:"K",sede:"Filadelfia",equipo1:"Uzbekistán",equipo2:"Colombia"},
+
+    {id:25,fecha:"2026-06-18",hora:"12:00",grupo:"A",sede:"Seattle",equipo1:"República Checa",equipo2:"Sudáfrica"},
+    {id:26,fecha:"2026-06-18",hora:"15:00",grupo:"B",sede:"Vancouver",equipo1:"Suiza",equipo2:"Bosnia y Herzegovina"},
+    {id:27,fecha:"2026-06-18",hora:"18:00",grupo:"B",sede:"Kansas City",equipo1:"Canadá",equipo2:"Catar"},
+    {id:28,fecha:"2026-06-18",hora:"21:00",grupo:"A",sede:"Guadalajara",equipo1:"México",equipo2:"Corea del Sur"},
+
+    {id:29,fecha:"2026-06-19",hora:"20:30",grupo:"C",sede:"Filadelfia",equipo1:"Brasil",equipo2:"Haití"},
+    {id:30,fecha:"2026-06-19",hora:"18:00",grupo:"C",sede:"Boston",equipo1:"Escocia",equipo2:"Marruecos"},
+    {id:31,fecha:"2026-06-19",hora:"23:00",grupo:"D",sede:"Bahía de San Francisco",equipo1:"Turquía",equipo2:"Paraguay"},
+    {id:32,fecha:"2026-06-19",hora:"15:00",grupo:"D",sede:"Seattle",equipo1:"Estados Unidos",equipo2:"Australia"},
+    {id:33,fecha:"2026-06-19",hora:"16:00",grupo:"E",sede:"Nueva York/Nueva Jersey",equipo1:"Alemania",equipo2:"Costa de Marfil"},
+    {id:34,fecha:"2026-06-19",hora:"20:00",grupo:"E",sede:"Kansas City",equipo1:"Ecuador",equipo2:"Curazao"},
+    {id:35,fecha:"2026-06-19",hora:"13:00",grupo:"F",sede:"Dallas",equipo1:"Países Bajos",equipo2:"Suecia"},
+    {id:36,fecha:"2026-06-19",hora:"00:00",grupo:"F",sede:"Monterrey",equipo1:"Túnez",equipo2:"Japón"},
+
+    {id:37,fecha:"2026-06-20",hora:"18:00",grupo:"H",sede:"Miami",equipo1:"Uruguay",equipo2:"Cabo Verde"},
+    {id:38,fecha:"2026-06-20",hora:"12:00",grupo:"H",sede:"Atlanta",equipo1:"España",equipo2:"Arabia Saudita"},
+    {id:39,fecha:"2026-06-20",hora:"15:00",grupo:"G",sede:"Los Ángeles",equipo1:"Bélgica",equipo2:"Irán"},
+    {id:40,fecha:"2026-06-20",hora:"21:00",grupo:"G",sede:"Toronto",equipo1:"Nueva Zelanda",equipo2:"Egipto"},
+    {id:41,fecha:"2026-06-20",hora:"20:00",grupo:"I",sede:"Nueva York/Nueva Jersey",equipo1:"Noruega",equipo2:"Senegal"},
+    {id:42,fecha:"2026-06-20",hora:"17:00",grupo:"I",sede:"Filadelfia",equipo1:"Francia",equipo2:"Irak"},
+
+    {id:43,fecha:"2026-06-21",hora:"13:00",grupo:"J",sede:"Dallas",equipo1:"Argentina",equipo2:"Austria"},
+    {id:44,fecha:"2026-06-21",hora:"23:00",grupo:"J",sede:"Bahía de San Francisco",equipo1:"Jordania",equipo2:"Argelia"},
+    {id:45,fecha:"2026-06-21",hora:"16:00",grupo:"L",sede:"Toronto",equipo1:"Inglaterra",equipo2:"Ghana"},
+    {id:46,fecha:"2026-06-21",hora:"19:00",grupo:"L",sede:"Toronto",equipo1:"Panamá",equipo2:"Croacia"},
+    {id:47,fecha:"2026-06-21",hora:"13:00",grupo:"K",sede:"Houston",equipo1:"Portugal",equipo2:"Uzbekistán"}
+  ];
+
+  const $ = id => document.getElementById(id);
+
+  let db;
+  let adminActivo = false;
+  let pronosticosGlobales = {};
+  let resultadosGlobales = {};
+  let configSemana = {
+    recepcionCerrada:false,
+    pronosticosVisibles:false
+  };
+
+  try{
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+
+    db.ref(".info/connected").on("value", snap => {
+      const conectado = snap.val() === true;
+      $("estadoConexion").innerHTML = `<span class="status-dot ${conectado ? "online" : ""}"></span>${conectado ? "Conectado con Firebase." : "Sin conexión con Firebase."}`;
+    });
+  }catch(error){
+    $("estadoConexion").innerHTML = `<div class="error-box">Error de conexión. Revisa firebaseConfig.</div>`;
+    console.error(error);
+  }
+
+  function normalizarClave(texto){
+    return texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g,"")
+      .replace(/\s+/g,"_")
+      .replace(/[.#$/[\]]/g,"_");
+  }
+
+  function refSemana(){return db.ref(`quiniela2026/${SEMANA}`)}
+  function refConfigSemana(){return db.ref(`quiniela2026/${SEMANA}/config`)}
+  function refPronosticos(){return db.ref(`quiniela2026/${SEMANA}/pronosticos`)}
+  function refPronosticoJugador(nombre){return db.ref(`quiniela2026/${SEMANA}/pronosticos/${normalizarClave(nombre)}`)}
+  function refResultados(){return db.ref(`quiniela2026/${SEMANA}/resultados`)}
+  function refResultadoPartido(id){return db.ref(`quiniela2026/${SEMANA}/resultados/partido_${id}`)}
+
+  function cargarParticipantes(){
+    const opciones = participantes.map(p => `<option value="${p}">${p}</option>`).join("");
+
+    $("participante").innerHTML = `<option value="">Seleccione su nombre</option>` + opciones;
+
+    if($("participanteBorrar")){
+      $("participanteBorrar").innerHTML = `<option value="">Seleccione participante</option>` + opciones;
+    }
+  }
+
+  function escucharDatos(){
+    refConfigSemana().on("value", snap => {
+      configSemana = {
+        recepcionCerrada:false,
+        pronosticosVisibles:false,
+        ...(snap.val() || {})
+      };
+      renderEstadoSemana();
+      renderPartidos();
+      renderTabla();
+      renderPronosticosPublicos();
+      actualizarMensajeParticipante();
+    });
+
+    refPronosticos().on("value", snap => {
+      pronosticosGlobales = snap.val() || {};
+      renderResumen();
+      renderPartidos();
+      renderTabla();
+      renderPronosticosPublicos();
+      actualizarMensajeParticipante();
+    });
+
+    refResultados().on("value", snap => {
+      resultadosGlobales = snap.val() || {};
+      renderPartidos();
+      renderTabla();
+      renderPronosticosPublicos();
+    });
+  }
+
+  function partidoBloqueadoPorFecha(partido){
+    // Bloqueo por fecha desactivado.
+    // La recepción se controla únicamente con el botón "Cerrar recepción" del administrador.
+    return false;
+  }
+
+  function obtenerPronosticoJugador(nombre){
+    if(!nombre) return null;
+    return pronosticosGlobales[normalizarClave(nombre)] || null;
+  }
+
+  function obtenerResultado(id){
+    return resultadosGlobales[`partido_${id}`] || null;
+  }
+
+  function resultadoDeMarcador(g1,g2,equipo1,equipo2){
+    if(g1 > g2) return equipo1;
+    if(g2 > g1) return equipo2;
+    return "EMPATE";
+  }
+
+  function formatearFecha(iso){
+    if(!iso) return "-";
+    const fecha = new Date(iso);
+    return fecha.toLocaleString("es-CR", {
+      year:"numeric",
+      month:"2-digit",
+      day:"2-digit",
+      hour:"2-digit",
+      minute:"2-digit"
+    });
+  }
+
+  function renderResumen(){
+    const enviados = Object.keys(pronosticosGlobales).length;
+    $("totalParticipantes").textContent = participantes.length;
+    $("totalEnviados").textContent = enviados;
+    $("totalPendientes").textContent = participantes.length - enviados;
+  }
+
+  function renderEstadoSemana(){
+    let texto = "";
+
+    if(configSemana.recepcionCerrada){
+      texto += "🔒 La recepción de pronósticos está cerrada. ";
+    }else{
+      texto += "✅ La recepción de pronósticos está abierta. ";
+    }
+
+    if(configSemana.pronosticosVisibles){
+      texto += "Los pronósticos públicos están visibles.";
+    }else{
+      texto += "Los pronósticos públicos están ocultos.";
+    }
+
+    $("estadoSemana").textContent = texto;
+  }
+
+  function renderPartidos(){
+    const nombre = $("participante").value;
+    const registroJugador = obtenerPronosticoJugador(nombre);
+    const pronosticos = registroJugador?.respuestas || {};
+    const jugadorBloqueado = !!registroJugador;
+    const recepcionCerrada = configSemana.recepcionCerrada;
+
+    $("guardarPronosticos").disabled = !nombre || jugadorBloqueado || recepcionCerrada;
+
+    $("partidos").innerHTML = partidos.map(p => {
+      const bloqueadoFecha = partidoBloqueadoPorFecha(p);
+      const disabled = !nombre || jugadorBloqueado || bloqueadoFecha || recepcionCerrada ? "disabled" : "";
+      const resultado = obtenerResultado(p.id);
+      const adminDisabled = (!adminActivo || !!resultado) ? "disabled" : "";
+
+      return `
+        <div class="match ${jugadorBloqueado || bloqueadoFecha || recepcionCerrada ? "locked" : ""}">
+          <div class="match-head">
+            <span class="tag">Partido ${p.id} · Grupo ${p.grupo}</span>
+            <span class="small">${p.fecha} · ${p.hora} ET · ${p.sede}</span>
+          </div>
+
+          <div class="teams">${p.equipo1} vs ${p.equipo2}</div>
+
+          <div class="options">
+            ${[p.equipo1,"EMPATE",p.equipo2].map(op => `
+              <label class="option">
+                <input type="radio" name="partido_${p.id}" value="${op}" ${pronosticos[p.id] === op ? "checked" : ""} ${disabled}>
+                ${op === "EMPATE" ? "Empate" : op + " gana"}
+              </label>`).join("")}
+          </div>
+
+          <div class="small" style="margin-top:8px;">
+            ${jugadorBloqueado ? "Pronósticos enviados. Ya no se pueden modificar." : ""}
+            
+            ${recepcionCerrada ? " La recepción de pronósticos está cerrada." : ""}
+          </div>
+
+          <div class="official">
+            <span>
+              <b>Resultado oficial:</b>
+              ${resultado ? `${resultado.goles1} - ${resultado.goles2} (${resultado.ganador === "EMPATE" ? "Empate" : "Gana " + resultado.ganador})` : "pendiente"}
+            </span>
+            <input type="number" min="0" id="g1_${p.id}" placeholder="${p.equipo1}" ${adminDisabled}>
+            <input type="number" min="0" id="g2_${p.id}" placeholder="${p.equipo2}" ${adminDisabled}>
+            <button onclick="guardarResultado(${p.id})" ${adminDisabled}>Guardar resultado</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function actualizarMensajeParticipante(){
+    const nombre = $("participante").value;
+
+    if(!nombre){
+      $("mensajeParticipante").innerHTML = "";
+      return;
+    }
+
+    const registro = obtenerPronosticoJugador(nombre);
+
+    if(registro){
+      $("mensajeParticipante").innerHTML =
+        `<div class="ok-box">Los pronósticos de <b>${nombre}</b> ya fueron enviados y están bloqueados.</div>`;
+    }else if(configSemana.recepcionCerrada){
+      $("mensajeParticipante").innerHTML =
+        `<div class="error-box">La recepción de pronósticos está cerrada.</div>`;
+    }else{
+      $("mensajeParticipante").innerHTML =
+        `<div class="warning-box">Seleccione sus pronósticos y presione <b>Guardar pronósticos</b>. Después no podrá modificarlos.</div>`;
+    }
+  }
+
+  async function guardarPronosticos(){
+    const nombre = $("participante").value;
+
+    if(!nombre){
+      alert("Seleccione un participante.");
+      return;
+    }
+
+    if(configSemana.recepcionCerrada){
+      alert("La recepción de pronósticos está cerrada.");
+      return;
+    }
+
+    if(obtenerPronosticoJugador(nombre)){
+      alert("Este participante ya envió sus pronósticos. No se pueden modificar.");
+      return;
+    }
+
+    const respuestas = {};
+    let incompletos = 0;
+
+    partidos.forEach(p => {
+      if(partidoBloqueadoPorFecha(p)) return;
+
+      const elegido = document.querySelector(`input[name="partido_${p.id}"]:checked`);
+      if(elegido){
+        respuestas[p.id] = elegido.value;
+      }else{
+        incompletos++;
+      }
+    });
+
+    if(Object.keys(respuestas).length === 0){
+      alert("Debe seleccionar al menos un pronóstico.");
+      return;
+    }
+
+    if(incompletos > 0){
+      alert(`Faltan ${incompletos} partidos por pronosticar. Debe completar los ${partidos.length} partidos antes de guardar.`);
+      return;
+    }
+
+    if(Object.keys(respuestas).length !== partidos.length){
+      alert("No se puede guardar porque la quiniela está incompleta. Revise todos los partidos.");
+      return;
+    }
+
+    if(!confirm(`¿Guardar definitivamente los ${partidos.length} pronósticos de ${nombre}? Después no se podrán modificar.`)){
+      return;
+    }
+
+    const datos = {
+      nombre,
+      respuestas,
+      fechaEnvio:new Date().toISOString(),
+      bloqueado:true
+    };
+
+    try{
+      await refPronosticoJugador(nombre).transaction(actual => {
+        if(actual !== null) return actual;
+        return datos;
+      });
+
+      alert("Pronósticos guardados en línea.");
+    }catch(error){
+      console.error(error);
+      alert("No se pudieron guardar los pronósticos. Revise la conexión o Firebase.");
+    }
+  }
+
+  window.guardarResultado = async function(id){
+    if(!adminActivo){
+      alert("Debe activar el modo administrador.");
+      return;
+    }
+
+    const partido = partidos.find(p => p.id === id);
+    const g1 = Number($("g1_" + id).value);
+    const g2 = Number($("g2_" + id).value);
+
+    if(obtenerResultado(id)){
+      alert("Este resultado oficial ya fue guardado.");
+      return;
+    }
+
+    if(!Number.isInteger(g1) || !Number.isInteger(g2) || g1 < 0 || g2 < 0){
+      alert("Digite marcadores válidos.");
+      return;
+    }
+
+    const ganador = resultadoDeMarcador(g1,g2,partido.equipo1,partido.equipo2);
+
+    if(!confirm(`¿Guardar resultado oficial ${partido.equipo1} ${g1} - ${g2} ${partido.equipo2}?`)){
+      return;
+    }
+
+    const datos = {
+      partidoId:id,
+      equipo1:partido.equipo1,
+      equipo2:partido.equipo2,
+      goles1:g1,
+      goles2:g2,
+      ganador,
+      fechaRegistro:new Date().toISOString()
+    };
+
+    try{
+      await refResultadoPartido(id).transaction(actual => {
+        if(actual !== null) return actual;
+        return datos;
+      });
+
+      alert("Resultado oficial guardado en línea.");
+    }catch(error){
+      console.error(error);
+      alert("No se pudo guardar el resultado.");
+    }
+  };
+
+  function calcularPuntos(nombre){
+    const registro = obtenerPronosticoJugador(nombre);
+    const respuestas = registro?.respuestas || {};
+    let puntos = 0;
+
+    partidos.forEach(p => {
+      const resultado = obtenerResultado(p.id);
+      if(resultado && respuestas[p.id] === resultado.ganador){
+        puntos++;
+      }
+    });
+
+    return puntos;
+  }
+
+  function contarPronosticos(nombre){
+    const registro = obtenerPronosticoJugador(nombre);
+    return Object.keys(registro?.respuestas || {}).length;
+  }
+
+  function renderTabla(){
+    const filas = participantes.map(nombre => ({
+      nombre,
+      puntos:calcularPuntos(nombre),
+      enviados:contarPronosticos(nombre),
+      fechaEnvio:obtenerPronosticoJugador(nombre)?.fechaEnvio || null
+    }))
+    .sort((a,b) => b.puntos - a.puntos || b.enviados - a.enviados || a.nombre.localeCompare(b.nombre));
+
+    $("tablaPosiciones").innerHTML = filas.map((f,i) => {
+      let medalla = "";
+      if(i === 0 && f.puntos > 0) medalla = "🥇 ";
+      if(i === 1 && f.puntos > 0) medalla = "🥈 ";
+      if(i === 2 && f.puntos > 0) medalla = "🥉 ";
+
+      return `
+        <tr class="${i === 0 && f.puntos > 0 ? "winner" : ""}">
+          <td>${medalla}${i + 1}</td>
+          <td>${f.nombre}</td>
+          <td>${f.puntos}</td>
+          <td>${f.enviados} de ${partidos.length}</td>
+          <td>${formatearFecha(f.fechaEnvio)}</td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderPronosticosPublicos(){
+    const visibles = configSemana.pronosticosVisibles;
+
+    $("pronosticosPublicos").innerHTML = participantes.map(nombre => {
+      const registro = obtenerPronosticoJugador(nombre);
+      const respuestas = registro?.respuestas || {};
+      const enviado = !!registro;
+
+      if(!enviado){
+        return `
+          <div class="pred-card">
+            <h3>${nombre}</h3>
+            <p class="small">Pendiente de enviar.</p>
+          </div>
+        `;
+      }
+
+      if(!visibles){
+        return `
+          <div class="pred-card">
+            <h3>${nombre}</h3>
+            <p class="small">✅ Pronósticos enviados y bloqueados.</p>
+            <p class="small">Enviado: ${formatearFecha(registro.fechaEnvio)}</p>
+            <p class="small"><b>Las respuestas estarán ocultas hasta que el administrador las muestre.</b></p>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="pred-card">
+          <h3>${nombre}</h3>
+          <p class="small">✅ Pronósticos enviados y bloqueados.</p>
+          <p class="small">Enviado: ${formatearFecha(registro.fechaEnvio)}</p>
+          <ol class="pred-list">
+            ${partidos.map(p => {
+              const r = respuestas[p.id] || "Sin pronóstico";
+              const resultado = obtenerResultado(p.id);
+              const acierto = resultado && r === resultado.ganador ? " ✅" : "";
+              return `<li>${p.equipo1} vs ${p.equipo2}: <b>${r}</b>${acierto}</li>`;
+            }).join("")}
+          </ol>
+        </div>
+      `;
+    }).join("");
+  }
+
+  async function cerrarRecepcion(){
+    if(!adminActivo){
+      alert("Debe activar el modo administrador.");
+      return;
+    }
+
+    if(!confirm("¿Desea cerrar la recepción de pronósticos de Semana 2?")){
+      return;
+    }
+
+    await refConfigSemana().update({
+      recepcionCerrada:true,
+      fechaCierre:new Date().toISOString()
+    });
+
+    alert("Recepción cerrada.");
+  }
+
+  async function mostrarPronosticos(){
+    if(!adminActivo){
+      alert("Debe activar el modo administrador.");
+      return;
+    }
+
+    if(!confirm("¿Desea mostrar los pronósticos de todos los participantes?")){
+      return;
+    }
+
+    await refConfigSemana().update({
+      pronosticosVisibles:true,
+      fechaPublicacion:new Date().toISOString()
+    });
+
+    alert("Pronósticos visibles para todos.");
+  }
+
+  async function borrarPronosticoParticipante(){
+    if(!adminActivo){
+      alert("Debe activar el modo administrador.");
+      return;
+    }
+
+    const nombre = $("participanteBorrar").value;
+
+    if(!nombre){
+      alert("Seleccione el participante que desea corregir.");
+      return;
+    }
+
+    const registro = obtenerPronosticoJugador(nombre);
+
+    if(!registro){
+      alert("Este participante no tiene pronósticos guardados.");
+      return;
+    }
+
+    if(configSemana.recepcionCerrada){
+      if(!confirm("La recepción está cerrada. ¿Aun así desea borrar el pronóstico de este participante?")){
+        return;
+      }
+    }
+
+    if(!confirm(`¿Desea borrar el pronóstico guardado de ${nombre}? Esta persona podrá volver a realizar su predicción.`)){
+      return;
+    }
+
+    try{
+      await refPronosticoJugador(nombre).remove();
+
+      if($("participante").value === nombre){
+        $("participante").value = "";
+      }
+
+      alert(`Pronóstico de ${nombre} eliminado correctamente.`);
+    }catch(error){
+      console.error(error);
+      alert("No se pudo borrar el pronóstico del participante.");
+    }
+  }
+
+  async function limpiarSemana(){
+    if(!adminActivo){
+      alert("Debe activar el modo administrador.");
+      return;
+    }
+
+    if(!confirm("Esto borrará todos los pronósticos y resultados de Semana 2 en Firebase. ¿Desea continuar?")){
+      return;
+    }
+
+    if(!confirm("Confirmación final: esta acción limpia la semana para todos los usuarios.")){
+      return;
+    }
+
+    try{
+      await refSemana().remove();
+      alert("Semana 2 limpiada en Firebase.");
+    }catch(error){
+      console.error(error);
+      alert("No se pudo limpiar la semana.");
+    }
+  }
+
+  $("participante").addEventListener("change", () => {
+    renderPartidos();
+    actualizarMensajeParticipante();
+  });
+
+  $("guardarPronosticos").addEventListener("click", guardarPronosticos);
+
+  $("activarAdmin").addEventListener("click", () => {
+    if($("pinAdmin").value === ADMIN_PIN){
+      adminActivo = true;
+      alert("Modo administrador activado.");
+      renderPartidos();
+    }else{
+      alert("PIN incorrecto.");
+    }
+  });
+
+  $("cerrarRecepcion").addEventListener("click", cerrarRecepcion);
+  $("mostrarPronosticos").addEventListener("click", mostrarPronosticos);
+  $("borrarPronosticoUsuario").addEventListener("click", borrarPronosticoParticipante);
+  $("limpiarSemana").addEventListener("click", limpiarSemana);
+
+  cargarParticipantes();
+  renderResumen();
+  renderEstadoSemana();
+  renderPartidos();
+  renderTabla();
+  renderPronosticosPublicos();
+
+  if(typeof firebase !== "undefined" && db){
+    escucharDatos();
+  }
+</script>
+
+</body>
+</html>
+
