@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiniela Mundial FIFA 2026 - Semana 4</title>
+<style>
+:root{--azul:#102a43;--azul2:#164e85;--celeste:#2f80ed;--verde:#27ae60;--rojo:#c0392b;--gris:#f3f5f7;--borde:#d6dce3;--texto:#1f2933}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--gris);color:var(--texto)}header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:white;padding:28px 16px;text-align:center}header h1{margin:0 0 8px;font-size:1.7rem}main{max-width:1200px;margin:20px auto;padding:0 12px 35px}.panel{background:white;border:1px solid var(--borde);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}h2,h3{margin-top:0;color:var(--azul)}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:end}label{display:block;font-weight:bold;margin-bottom:6px}select,input[type=number],input[type=password]{width:100%;padding:10px;border:1px solid var(--borde);border-radius:10px;font-size:1rem;background:white}button{border:0;border-radius:10px;padding:11px 14px;font-weight:bold;cursor:pointer;background:var(--celeste);color:white;font-size:.95rem}button.secondary{background:#596b7b}button.success{background:var(--verde)}button.danger{background:var(--rojo)}button.warning{background:#b7791f}button:disabled{background:#9aa5b1;cursor:not-allowed}.small{color:#66788a;font-size:.9rem}.ok-box{background:#e8f8ef;border:1px solid #9ad9b2;padding:10px;border-radius:10px;margin-top:10px}.warning-box{background:#fff7e6;border:1px solid #ffd27f;padding:10px;border-radius:10px;margin-top:10px}.error-box{background:#fdecea;border:1px solid #f5b7b1;padding:10px;border-radius:10px;margin-top:10px;color:#922b21}.match{border:1px solid var(--borde);border-radius:14px;padding:14px;margin-bottom:12px;background:#fff}.match.locked{background:#f8fafc}.match-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#eaf3ff;color:#164e85;font-size:.85rem;font-weight:bold}.teams{font-size:1.15rem;font-weight:bold;margin:8px 0 12px;text-align:center}.score-grid{display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:10px;align-items:center}.team-a{text-align:right;font-weight:bold}.team-b{text-align:left;font-weight:bold}.advance-box{margin-top:12px;padding:10px;border:1px dashed var(--borde);border-radius:10px;background:#fbfdff;display:none}.advance-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:8px}.advance-options label{border:1px solid var(--borde);border-radius:10px;padding:10px;background:#fafafa;font-weight:normal;cursor:pointer}.result-box{margin-top:14px;padding-top:12px;border-top:1px dashed var(--borde)}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--borde);text-align:left;vertical-align:top}th{background:#edf2f7}.table-wrap{overflow-x:auto}.winner{font-weight:bold;color:var(--verde)}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.stat{background:#f8fafc;border:1px solid var(--borde);border-radius:12px;padding:14px;text-align:center}.stat strong{display:block;font-size:1.5rem;color:var(--azul);margin-bottom:4px}.pred-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}.pred-card{border:1px solid var(--borde);border-radius:12px;padding:12px;background:#fbfdff}.pred-list{margin:0;padding-left:18px;font-size:.92rem;line-height:1.5}.status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:#9aa5b1}.status-dot.online{background:var(--verde)}.top-link{display:inline-block;margin-bottom:12px;color:var(--azul2);font-weight:bold;text-decoration:none}.admin-tools{margin-top:14px;padding-top:14px;border-top:1px dashed var(--borde)}.points-detail{font-size:.85rem;line-height:1.45}
+.usuario-click{color:var(--azul2);font-weight:bold;cursor:pointer;text-decoration:underline}
+.detalle-row{display:none;background:#fbfdff}
+.detalle-row.visible{display:table-row}
+.detalle-box{padding:12px;border-left:4px solid var(--celeste);font-size:.9rem;line-height:1.5}@media(max-width:650px){header h1{font-size:1.35rem}.score-grid{grid-template-columns:1fr 70px 70px 1fr}.team-a,.team-b{font-size:.82rem}th,td{font-size:.9rem}}
+</style>
+</head>
+<body>
+<header><h1>🏆 Quiniela Mundial FIFA 2026</h1><p>Semana 4 · Dieciseisavos de final · Marcador y clasificado</p></header>
+<main>
+<a href="index.html" class="top-link">← Volver al inicio</a>
+<section class="panel"><h2>Estado de conexión</h2><p id="estadoConexion" class="small"><span class="status-dot"></span>Conectando con Firebase...</p></section>
+<section class="panel"><h2>Resumen de la semana</h2><p class="small">Dieciseisavos de final. Horarios en hora central de Costa Rica. Las llaves se pueden reemplazar por equipos reales cuando se confirmen.</p><div class="stats"><div class="stat"><strong id="totalParticipantes">28</strong>Participantes</div><div class="stat"><strong id="totalEnviados">0</strong>Ya enviaron</div><div class="stat"><strong id="totalPendientes">28</strong>Pendientes</div><div class="stat"><strong>16</strong>Partidos</div></div><div class="warning-box"><b>Regla:</b> El marcador corresponde al resultado al finalizar el partido, incluyendo tiempos extra cuando existan. Los penales solo determinan el equipo clasificado.</div></section>
+<section class="panel"><div class="row"><div><label for="participante">Participante</label><select id="participante"></select></div><div><label>Semana</label><select disabled><option>Semana 4 - Dieciseisavos</option></select></div><div><button class="success" id="guardarPronosticos">Guardar pronósticos</button></div></div><div id="mensajeParticipante" class="small" style="margin-top:10px;"></div></section>
+<section class="panel"><h2>Administración</h2><p class="small">El administrador puede ingresar resultados oficiales, cerrar recepción, mostrar pronósticos, corregir usuarios o limpiar datos.</p><div class="row"><div><label for="pinAdmin">PIN administrador</label><input type="password" id="pinAdmin" placeholder="Digite el PIN"></div><div><button class="secondary" id="activarAdmin">Activar administrador</button></div><div><button class="warning" id="cerrarRecepcion">Cerrar recepción</button></div><div><button class="secondary" id="mostrarPronosticos">Mostrar pronósticos</button></div><div><button class="danger" id="limpiarSemana">Limpiar Semana 4</button></div></div><div class="admin-tools"><h3>Corregir pronóstico de un participante</h3><p class="small">Borra el pronóstico completo de un participante para que pueda volver a enviarlo.</p><div class="row"><div><label for="participanteBorrar">Participante a corregir</label><select id="participanteBorrar"></select></div><div><button class="danger" id="borrarPronosticoUsuario">Borrar pronóstico del participante</button></div></div></div><div id="estadoSemana" class="warning-box">La recepción está abierta.</div></section>
+<section class="panel"><h2>Partidos Semana 4</h2><div id="partidos"></div></section>
+<section class="panel"><h2>Tabla de posiciones</h2><div class="table-wrap"><table><thead><tr><th>Posición</th><th>Participante</th><th>Puntos</th><th>Pronósticos</th><th>Fecha</th><th>Detalle</th></tr></thead><tbody id="tablaPosiciones"></tbody></table></div></section>
+<section class="panel"><h2>Pronósticos enviados</h2><p class="small">Antes de que el administrador los muestre, solo se verá quién ya envió.</p><div id="pronosticosPublicos" class="pred-grid"></div></section>
+</main>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAFAfv25lI2w59tp8x2JvGfSlLVltZA-Ck",authDomain:"quiniela-mundial-2026-ls-335d9.firebaseapp.com",databaseURL:"https://quiniela-mundial-2026-ls-335d9-default-rtdb.firebaseio.com",projectId:"quiniela-mundial-2026-ls-335d9",storageBucket:"quiniela-mundial-2026-ls-335d9.firebasestorage.app",messagingSenderId:"838092529391",appId:"1:838092529391:web:c13a19ad3d5b1cdf4f851a"};
+const ADMIN_PIN="QM2026",SEMANA="semana4";
+const participantes =[
+  "Adrian",
+  "Ana Campos",
+  "Angie Soto",
+  "Bruno",
+  "Bryan",
+  "Diego Física",
+  "Diego González",
+  "Elther",
+  "Fabiana",
+  "Félix",
+  "Fernando",
+  "Freyman",
+  "Gonzalo",
+  "Guillermo",
+  "Jose Gutiérrez",
+  "José Badilla",
+  "Karen",
+  "Leticia",
+  "Lilliana",
+  "Maikor Campos",
+  "Marcela",
+  "Marcos Garcia",
+  "Marko Jiménez",
+  "Mylagro",
+  "Nelson",
+  "Oscar",
+  "Osvaldo",
+  "Raquel Pocasangre",
+  "Silvia",
+  "Verny",
+  "Waldin",
+  "Wendy"
+];
+const partidos=[
+{id:73,fecha:"2026-06-28",hora:"13:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Sudáfrica",equipo2:"Canadá"},
+{id:74,fecha:"2026-06-29",hora:"14:30",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Alemania",equipo2:"Paraguay"},
+{id:75,fecha:"2026-06-29",hora:"19:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Paises Bajos",equipo2:"Marruecos"},
+{id:76,fecha:"2026-06-29",hora:"11:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Brasil",equipo2:"Japón"},
+{id:77,fecha:"2026-06-30",hora:"15:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Francia",equipo2:"Suecia"},
+{id:78,fecha:"2026-06-30",hora:"11:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Costa de Marfil",equipo2:"Noruega"},
+{id:79,fecha:"2026-06-30",hora:"19:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"México",equipo2:"Ecuador"},
+{id:80,fecha:"2026-07-01",hora:"10:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Inglaterra",equipo2:"República del Congo"},
+{id:81,fecha:"2026-07-01",hora:"18:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Estados Unidos",equipo2:"Bosnia Herzegovina"},
+{id:82,fecha:"2026-07-01",hora:"14:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Bélgica",equipo2:"Senegal"},
+{id:83,fecha:"2026-07-02",hora:"17:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Portugal",equipo2:"Croacia"},
+{id:84,fecha:"2026-07-02",hora:"13:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"España",equipo2:"Austria"},
+{id:85,fecha:"2026-07-02",hora:"21:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Suiza",equipo2:"Argelia"},
+{id:86,fecha:"2026-07-03",hora:"16:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Argentina",equipo2:"Cabo Verde"},
+{id:87,fecha:"2026-07-03",hora:"19:30",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Colombia",equipo2:"Ghana"},
+{id:88,fecha:"2026-07-03",hora:"12:00",grupo:"Dieciseisavos",sede:"Por confirmar",equipo1:"Australia",equipo2:"Egipto"}
+];
+const $=id=>document.getElementById(id);let db,adminActivo=false,pronosticosGlobales={},resultadosGlobales={},configSemana={recepcionCerrada:false,pronosticosVisibles:false};
+try{firebase.initializeApp(firebaseConfig);db=firebase.database();db.ref(".info/connected").on("value",s=>{const c=s.val()===true;$("estadoConexion").innerHTML=`<span class="status-dot ${c?"online":""}"></span>${c?"Conectado con Firebase.":"Sin conexión con Firebase."}`})}catch(e){$("estadoConexion").innerHTML='<div class="error-box">Error de conexión. Revisa firebaseConfig.</div>';console.error(e)}
+function normalizarClave(t){return t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"_").replace(/[.#$/[\]]/g,"_")}function refSemana(){return db.ref(`quiniela2026/${SEMANA}`)}function refConfigSemana(){return db.ref(`quiniela2026/${SEMANA}/config`)}function refPronosticos(){return db.ref(`quiniela2026/${SEMANA}/pronosticos`)}function refPronosticoJugador(n){return db.ref(`quiniela2026/${SEMANA}/pronosticos/${normalizarClave(n)}`)}function refResultados(){return db.ref(`quiniela2026/${SEMANA}/resultados`)}function refResultadoPartido(id){return db.ref(`quiniela2026/${SEMANA}/resultados/partido_${id}`)}
+function cargarParticipantes(){const ops=participantes.map(p=>`<option value="${p}">${p}</option>`).join("");$("participante").innerHTML='<option value="">Seleccione su nombre</option>'+ops;$("participanteBorrar").innerHTML='<option value="">Seleccione participante</option>'+ops}
+function escucharDatos(){refConfigSemana().on("value",s=>{configSemana={recepcionCerrada:false,pronosticosVisibles:false,...(s.val()||{})};renderEstadoSemana();renderPartidos();renderTabla();renderPronosticosPublicos();actualizarMensajeParticipante()});refPronosticos().on("value",s=>{pronosticosGlobales=s.val()||{};renderResumen();renderPartidos();renderTabla();renderPronosticosPublicos();actualizarMensajeParticipante()});refResultados().on("value",s=>{resultadosGlobales=s.val()||{};renderPartidos();renderTabla();renderPronosticosPublicos()})}
+function obtenerPronosticoJugador(n){return n?pronosticosGlobales[normalizarClave(n)]||null:null}function obtenerResultado(id){return resultadosGlobales[`partido_${id}`]||null}function ganadorPorMarcador(g1,g2,e1,e2){if(g1>g2)return e1;if(g2>g1)return e2;return "EMPATE"}function formatearFecha(iso){return iso?new Date(iso).toLocaleString("es-CR",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}):"-"}
+function renderResumen(){const e=Object.keys(pronosticosGlobales).length;$("totalParticipantes").textContent=participantes.length;$("totalEnviados").textContent=e;$("totalPendientes").textContent=participantes.length-e}function renderEstadoSemana(){let t=configSemana.recepcionCerrada?"🔒 La recepción de pronósticos está cerrada. ":"✅ La recepción de pronósticos está abierta. ";t+=configSemana.pronosticosVisibles?"Los pronósticos públicos están visibles.":"Los pronósticos públicos están ocultos.";$("estadoSemana").textContent=t}
+function mostrarClasificadoSiEmpate(id,tipo){const a=$(`${tipo}_g1_${id}`),b=$(`${tipo}_g2_${id}`),box=$(`${tipo}_advance_${id}`);if(!a||!b||!box)return;const g1=Number(a.value),g2=Number(b.value);if(Number.isInteger(g1)&&Number.isInteger(g2)&&g1===g2){box.style.display="block"}else{box.style.display="none";document.querySelectorAll(`input[name="${tipo}_clasifica_${id}"]`).forEach(r=>r.checked=false)}}
+function renderPartidos(){const nombre=$("participante").value,reg=obtenerPronosticoJugador(nombre),resp=reg?.respuestas||{},bloq=!!reg,cerr=configSemana.recepcionCerrada;$("guardarPronosticos").disabled=!nombre||bloq||cerr;$("partidos").innerHTML=partidos.map(p=>{const pred=resp[p.id]||{},res=obtenerResultado(p.id)||{},dis=bloq||!nombre||cerr?"disabled":"",adminDis=!adminActivo?"disabled":"";return `<div class="match ${bloq||cerr?"locked":""}"><div class="match-head"><span class="tag">Partido ${p.id} · ${p.grupo}</span><span class="small">${p.fecha} · ${p.hora} CR · ${p.sede}</span></div><div class="teams">${p.equipo1} vs ${p.equipo2}</div><h3>Pronóstico</h3><div class="score-grid"><div class="team-a">${p.equipo1}</div><input type="number" min="0" id="pred_g1_${p.id}" value="${pred.g1??""}" ${dis} oninput="mostrarClasificadoSiEmpate(${p.id}, 'pred')"><input type="number" min="0" id="pred_g2_${p.id}" value="${pred.g2??""}" ${dis} oninput="mostrarClasificadoSiEmpate(${p.id}, 'pred')"><div class="team-b">${p.equipo2}</div></div><div class="advance-box" id="pred_advance_${p.id}"><strong>Si hay empate, marque quién clasifica:</strong><div class="advance-options"><label><input type="radio" name="pred_clasifica_${p.id}" value="${p.equipo1}" ${pred.clasifica===p.equipo1?"checked":""} ${dis}> Clasifica ${p.equipo1}</label><label><input type="radio" name="pred_clasifica_${p.id}" value="${p.equipo2}" ${pred.clasifica===p.equipo2?"checked":""} ${dis}> Clasifica ${p.equipo2}</label></div></div><div class="small" style="margin-top:8px;">${bloq?"Pronósticos enviados. Ya no se pueden modificar.":""}${cerr?" La recepción está cerrada.":""}</div><div class="result-box"><h3>Resultado oficial</h3><div class="score-grid"><div class="team-a">${p.equipo1}</div><input type="number" min="0" id="res_g1_${p.id}" value="${res.g1??""}" ${adminDis} oninput="mostrarClasificadoSiEmpate(${p.id}, 'res')"><input type="number" min="0" id="res_g2_${p.id}" value="${res.g2??""}" ${adminDis} oninput="mostrarClasificadoSiEmpate(${p.id}, 'res')"><div class="team-b">${p.equipo2}</div></div><div class="advance-box" id="res_advance_${p.id}"><strong>Si el resultado oficial es empate, marque quién clasifica:</strong><div class="advance-options"><label><input type="radio" name="res_clasifica_${p.id}" value="${p.equipo1}" ${res.clasifica===p.equipo1?"checked":""} ${adminDis}> Clasifica ${p.equipo1}</label><label><input type="radio" name="res_clasifica_${p.id}" value="${p.equipo2}" ${res.clasifica===p.equipo2?"checked":""} ${adminDis}> Clasifica ${p.equipo2}</label></div></div><button onclick="guardarResultado(${p.id})" ${adminDis} style="margin-top:10px">Guardar resultado</button></div></div>`}).join("");partidos.forEach(p=>{mostrarClasificadoSiEmpate(p.id,"pred");mostrarClasificadoSiEmpate(p.id,"res")})}
+function actualizarMensajeParticipante(){const n=$("participante").value;if(!n){$("mensajeParticipante").innerHTML="";return}const r=obtenerPronosticoJugador(n);$("mensajeParticipante").innerHTML=r?`<div class="ok-box">Los pronósticos de <b>${n}</b> ya fueron enviados y están bloqueados.</div>`:configSemana.recepcionCerrada?'<div class="error-box">La recepción está cerrada.</div>':'<div class="warning-box">Digite marcadores y, si pronostica empate, marque quién clasifica.</div>'}
+async function guardarPronosticos(){const n=$("participante").value;if(!n){alert("Seleccione un participante.");return}if(configSemana.recepcionCerrada){alert("La recepción está cerrada.");return}if(obtenerPronosticoJugador(n)){alert("Este participante ya envió sus pronósticos.");return}const respuestas={};let faltantes=0;partidos.forEach(p=>{const g1=Number($(`pred_g1_${p.id}`).value),g2=Number($(`pred_g2_${p.id}`).value);if(!Number.isInteger(g1)||!Number.isInteger(g2)||g1<0||g2<0){faltantes++;return}const ganador=ganadorPorMarcador(g1,g2,p.equipo1,p.equipo2);let clasifica=null;if(ganador==="EMPATE"){const e=document.querySelector(`input[name="pred_clasifica_${p.id}"]:checked`);if(!e){faltantes++;return}clasifica=e.value}respuestas[p.id]={g1,g2,ganador,clasifica}});if(faltantes>0){alert(`Faltan datos en ${faltantes} partido(s). Revise marcadores y clasificado en caso de empate.`);return}if(!confirm(`¿Guardar definitivamente los ${partidos.length} pronósticos de ${n}? Después no se podrán modificar.`))return;await refPronosticoJugador(n).transaction(a=>a!==null?a:{nombre:n,respuestas,fechaEnvio:new Date().toISOString(),bloqueado:true});alert("Pronósticos guardados en línea.")}
+window.guardarResultado=async function(id){if(!adminActivo){alert("Debe activar el modo administrador.");return}const p=partidos.find(x=>x.id===id),g1=Number($(`res_g1_${id}`).value),g2=Number($(`res_g2_${id}`).value);if(!Number.isInteger(g1)||!Number.isInteger(g2)||g1<0||g2<0){alert("Digite marcadores válidos.");return}const ganador=ganadorPorMarcador(g1,g2,p.equipo1,p.equipo2);let clasifica=null;if(ganador==="EMPATE"){const e=document.querySelector(`input[name="res_clasifica_${id}"]:checked`);if(!e){alert("Debe marcar cuál equipo clasifica.");return}clasifica=e.value}else clasifica=ganador;if(!confirm(`¿Guardar resultado oficial ${p.equipo1} ${g1} - ${g2} ${p.equipo2}?`))return;await refResultadoPartido(id).set({partidoId:id,equipo1:p.equipo1,equipo2:p.equipo2,goles1:g1,goles2:g2,g1,g2,ganador,clasifica,fechaRegistro:new Date().toISOString()});alert("Resultado oficial guardado.")};
+function calcularPuntosPronostico(pred,res){if(!pred||!res)return{puntos:0,detalle:"Sin resultado oficial"};let puntos=0,det=[];if(pred.ganador===res.ganador){puntos++;det.push("Resultado base")}if(pred.g1===res.g1&&pred.g2===res.g2){puntos++;det.push("Marcador exacto")}if(pred.ganador==="EMPATE"&&res.ganador==="EMPATE"&&pred.clasifica===res.clasifica){puntos++;det.push("Clasificado")}if(det.length===0)det.push("Sin aciertos");return{puntos,detalle:det.join(" + ")}}
+function calcularPuntos(n){const r=obtenerPronosticoJugador(n),resp=r?.respuestas||{};let total=0,detalles=[];partidos.forEach(p=>{const c=calcularPuntosPronostico(resp[p.id],obtenerResultado(p.id));total+=c.puntos;detalles.push(`P${p.id}: ${c.puntos} (${c.detalle})`)});return{total,detalles}}
+function contarPronosticos(n){return Object.keys(obtenerPronosticoJugador(n)?.respuestas||{}).length}function toggleDetalleUsuario(id){
+ const row=document.getElementById(id);
+ if(row){row.classList.toggle("visible")}
+}
+function renderTabla(){
+ const filas=participantes.map(n=>{
+  const c=calcularPuntos(n);
+  return{nombre:n,puntos:c.total,detalles:c.detalles,enviados:contarPronosticos(n),fechaEnvio:obtenerPronosticoJugador(n)?.fechaEnvio||null}
+ }).sort((a,b)=>b.puntos-a.puntos||b.enviados-a.enviados||a.nombre.localeCompare(b.nombre));
+ $("tablaPosiciones").innerHTML=filas.map((f,i)=>{
+  let m="";
+  if(i===0&&f.puntos>0)m="🥇 ";
+  if(i===1&&f.puntos>0)m="🥈 ";
+  if(i===2&&f.puntos>0)m="🥉 ";
+  const detalleId=`detalle_${i}`;
+  return `
+   <tr class="${i===0&&f.puntos>0?"winner":""}">
+    <td>${m}${i+1}</td>
+    <td><span class="usuario-click" onclick="toggleDetalleUsuario('${detalleId}')">${f.nombre}</span></td>
+    <td>${f.puntos}</td>
+    <td>${f.enviados} de ${partidos.length}</td>
+    <td>${formatearFecha(f.fechaEnvio)}</td>
+   </tr>
+   <tr id="${detalleId}" class="detalle-row">
+    <td colspan="5">
+     <div class="detalle-box">
+      <strong>Desglose de puntos de ${f.nombre}</strong><br>
+      ${f.detalles.join("<br>")}
+     </div>
+    </td>
+   </tr>
+  `;
+ }).join("")
+}
+function renderPronosticosPublicos(){const visibles=configSemana.pronosticosVisibles;$("pronosticosPublicos").innerHTML=participantes.map(n=>{const r=obtenerPronosticoJugador(n),resp=r?.respuestas||{};if(!r)return `<div class="pred-card"><h3>${n}</h3><p class="small">Pendiente de enviar.</p></div>`;if(!visibles)return `<div class="pred-card"><h3>${n}</h3><p class="small">✅ Pronósticos enviados y bloqueados.</p><p class="small">Enviado: ${formatearFecha(r.fechaEnvio)}</p><p class="small"><b>Las respuestas estarán ocultas hasta que el administrador las muestre.</b></p></div>`;return `<div class="pred-card"><h3>${n}</h3><p class="small">✅ Pronósticos enviados y bloqueados.</p><p class="small">Enviado: ${formatearFecha(r.fechaEnvio)}</p><ol class="pred-list">${partidos.map(p=>{const x=resp[p.id];if(!x)return `<li>${p.equipo1} vs ${p.equipo2}: sin pronóstico</li>`;return `<li>${p.equipo1} ${x.g1}-${x.g2} ${p.equipo2}${x.clasifica?` · Clasifica: <b>${x.clasifica}</b>`:""}</li>`}).join("")}</ol></div>`}).join("")}
+async function cerrarRecepcion(){if(!adminActivo){alert("Debe activar el modo administrador.");return}if(!confirm("¿Desea cerrar la recepción de pronósticos de Semana 4?"))return;await refConfigSemana().update({recepcionCerrada:true,fechaCierre:new Date().toISOString()});alert("Recepción cerrada.")}async function mostrarPronosticos(){if(!adminActivo){alert("Debe activar el modo administrador.");return}if(!confirm("¿Desea mostrar los pronósticos de todos?"))return;await refConfigSemana().update({pronosticosVisibles:true,fechaPublicacion:new Date().toISOString()});alert("Pronósticos visibles para todos.")}async function borrarPronosticoParticipante(){if(!adminActivo){alert("Debe activar el modo administrador.");return}const n=$("participanteBorrar").value;if(!n){alert("Seleccione el participante.");return}if(!obtenerPronosticoJugador(n)){alert("Este participante no tiene pronósticos guardados.");return}if(!confirm(`¿Desea borrar el pronóstico guardado de ${n}?`))return;await refPronosticoJugador(n).remove();if($("participante").value===n)$("participante").value="";alert(`Pronóstico de ${n} eliminado correctamente.`)}async function limpiarSemana(){if(!adminActivo){alert("Debe activar el modo administrador.");return}if(!confirm("Esto borrará todos los pronósticos y resultados de Semana 4 en Firebase. ¿Desea continuar?"))return;if(!confirm("Confirmación final: esta acción limpia la semana para todos."))return;await refSemana().remove();alert("Semana 4 limpiada en Firebase.")}
+$("participante").addEventListener("change",()=>{renderPartidos();actualizarMensajeParticipante()});$("guardarPronosticos").addEventListener("click",guardarPronosticos);$("activarAdmin").addEventListener("click",()=>{if($("pinAdmin").value===ADMIN_PIN){adminActivo=true;alert("Modo administrador activado.");renderPartidos()}else alert("PIN incorrecto.")});$("cerrarRecepcion").addEventListener("click",cerrarRecepcion);$("mostrarPronosticos").addEventListener("click",mostrarPronosticos);$("borrarPronosticoUsuario").addEventListener("click",borrarPronosticoParticipante);$("limpiarSemana").addEventListener("click",limpiarSemana);
+cargarParticipantes();renderResumen();renderEstadoSemana();renderPartidos();renderTabla();renderPronosticosPublicos();if(typeof firebase!=="undefined"&&db)escucharDatos();
+</script>
+</body>
+</html>
